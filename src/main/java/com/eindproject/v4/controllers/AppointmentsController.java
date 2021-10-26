@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 public class AppointmentsController {
 
     @GetMapping("/appointments")
-    public ResponseEntity<Object> getAllAppointments() {
+    public ResponseEntity<Object> getAppointments() {
         return ResponseEntity.ok("List of all Appointments");
     }
 
