@@ -1,5 +1,6 @@
 package com.eindproject.v4.service;
 
+import com.eindproject.v4.exceptions.RecordNotFoundException;
 import com.eindproject.v4.model.Appointment;
 import com.eindproject.v4.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,14 @@ public class AppointmentService {
     }
 
     public Optional<Appointment> findById(long id) {
-        Optional<Appointment> appointment= appointmentRepository.findById(id);
-        return appointment;
+        try {
+            Optional<Appointment> appointment = appointmentRepository.findById(id);
+            return appointment;
+        }
+        catch (Exception ex) {
+                throw new RecordNotFoundException();
+
+        }
     }
 
     public long addAppointment(Appointment appointment) {
@@ -29,13 +36,24 @@ public class AppointmentService {
     }
 
     public void deleteAppointment(long id) {
-       appointmentRepository.deleteById(id);
+        try {
+            appointmentRepository.deleteById(id);
+        }
+        catch (Exception ex) {
+            throw new RecordNotFoundException();
+        }
     }
 
     public void updateAppointment(long id, Appointment newAppointment) {
-        Appointment appointment = appointmentRepository.findById(id).get();
-        appointment.setDate(newAppointment.getDate());
-        appointment.setTime(newAppointment.getTime());
-        appointmentRepository.save(appointment);
+        try {
+            Appointment appointment = appointmentRepository.findById(id).get();
+            appointment.setDate(newAppointment.getDate());
+            appointment.setTime(newAppointment.getTime());
+            appointmentRepository.save(appointment);
+        }
+        catch (Exception ex) {
+            throw new RecordNotFoundException();
+        }
     }
+
 }

@@ -23,12 +23,8 @@ public class AppointmentController {
 
     @GetMapping("/appointments/{id}")
     public ResponseEntity<Object> getAppointment(@PathVariable long id) {
-        try {
-            Optional<Appointment> appointment= appointmentService.findById(id);
-            return ResponseEntity.ok(appointment);
-        } catch (Exception ex) {
-            throw new RecordNotFoundException();
-        }
+        Optional<Appointment> appointment = appointmentService.findById(id);
+        return ResponseEntity.ok(appointment);
     }
 
     @PostMapping("/appointments")
@@ -39,22 +35,14 @@ public class AppointmentController {
 
     @DeleteMapping("/appointments/{id}")
     public ResponseEntity<Object> deleteAppointment(@PathVariable long id) {
-        try {
-            appointmentService.deleteAppointment(id);
-            return ResponseEntity.ok("Appointment deleted");
-        } catch (Exception ex) {
-            throw new RecordNotFoundException();
-        }
+        appointmentService.deleteAppointment(id);
+        return ResponseEntity.ok("Appointment deleted");
     }
 
     @PutMapping("/appointments/{id}")
     public ResponseEntity<Object> updateAppointment(@PathVariable long id, @RequestBody Appointment appointment) {
-        try {
-            appointmentService.updateAppointment(id, appointment);
-            return ResponseEntity.ok("Appointment X updated");
-        } catch (Exception ex) {
-            throw new RecordNotFoundException();
-        }
+        appointmentService.updateAppointment(id, appointment);
+        return ResponseEntity.ok("Appointment X updated");
     }
 
 //    @PatchMapping("/appointments/{id}")
