@@ -2,37 +2,29 @@ package com.eindproject.v4.controllers;
 
 import com.eindproject.v4.exceptions.RecordNotFoundException;
 import com.eindproject.v4.model.Appointment;
-import com.eindproject.v4.repository.AppointmentRepository;
+import com.eindproject.v4.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class AppointmentsController {
-
-//    private static List<Appointment> appointments = new ArrayList<>();
-
-
+public class AppointmentController {
 
     @Autowired
-    private AppointmentRepository appointmentRepository;
+    private AppointmentService appointmentService;
 
     @GetMapping("/appointments")
     public ResponseEntity<Object> getAppointments() {
-        Iterable<Appointment> appointments;
-        appointments = appointmentRepository.findAll();
+        Iterable<Appointment> appointments = appointmentService.findAll();
         return ResponseEntity.ok(appointments);
     }
 
     @GetMapping("/appointments/{id}")
     public ResponseEntity<Object> getAppointment(@PathVariable long id) {
         try {
-            Optional<Appointment> appointment;
-            appointment= appointmentRepository.findById(id);
+            Optional<Appointment> appointment= appointmentService.findById(id);
             return ResponseEntity.ok(appointment);
         } catch (Exception ex) {
             throw new RecordNotFoundException();
@@ -40,30 +32,30 @@ public class AppointmentsController {
     }
 
     @PostMapping("/appointments")
-    public ResponseEntity<Object> addAppointment(@RequestBody Appointment appointment) {
-        appointmentRepository.save(appointment);
+    public ResponseEntity<Object> createAppointment(@RequestBody Appointment appointment) {
+        appointmentService.addAppointment(appointment);
         return ResponseEntity.ok("Appointment created");
     }
 
     @DeleteMapping("/appointments/{id}")
     public ResponseEntity<Object> deleteAppointment(@PathVariable long id) {
         try {
-            appointmentRepository.deleteById(id);
+            appointmentService.deleteAppointment(id);
             return ResponseEntity.ok("Appointment deleted");
         } catch (Exception ex) {
             throw new RecordNotFoundException();
         }
     }
 
-//    @PutMapping("/appointments/{id}")
-//    public ResponseEntity<Object> updateAppointment(@PathVariable long id, @RequestBody Appointment appointment) {
-//        try {
-//            appointments.set(id, appointment);
-//            return ResponseEntity.ok("Appointment X updated");
-//        } catch (Exception ex) {
-//            throw new RecordNotFoundException();
-//        }
-//    }
+    @PutMapping("/appointments/{id}")
+    public ResponseEntity<Object> updateAppointment(@PathVariable long id, @RequestBody Appointment appointment) {
+        try {
+            appointmentService.updateAppointment(id, appointment);
+            return ResponseEntity.ok("Appointment X updated");
+        } catch (Exception ex) {
+            throw new RecordNotFoundException();
+        }
+    }
 
 //    @PatchMapping("/appointments/{id}")
 //    public ResponseEntity<Object> modifyAppointmentByDate(@PathVariable int id, @RequestBody Appointment date) {
