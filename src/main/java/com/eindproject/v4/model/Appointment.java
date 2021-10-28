@@ -4,8 +4,8 @@ public class Appointment {
 
     //attributes
     public Long id;
-    String date;
-    String time;
+    public String date;
+    public String time;
 
     //getters and setters
     public Long getId() {

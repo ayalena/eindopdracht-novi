@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 public class AppointmentsController {
 
-    private static List<String> appointments = new ArrayList<>();
+    private static List<Appointment> appointments = new ArrayList<>();
 
     @GetMapping("/appointments")
     public ResponseEntity<Object> getAppointments() {
@@ -28,7 +28,7 @@ public class AppointmentsController {
     }
 
     @PostMapping("/appointments")
-    public ResponseEntity<Object> addAppointment(@RequestBody String appointment) {
+    public ResponseEntity<Object> addAppointment(@RequestBody Appointment appointment) {
         appointments.add(appointment);
         return ResponseEntity.ok("Appointment created");
     }
@@ -44,7 +44,7 @@ public class AppointmentsController {
     }
 
     @PutMapping("/appointments/{id}")
-    public ResponseEntity<Object> updateAppointment(@PathVariable int id, @RequestBody String appointment) {
+    public ResponseEntity<Object> updateAppointment(@PathVariable int id, @RequestBody Appointment appointment) {
         try {
             appointments.set(id, appointment);
             return ResponseEntity.ok("Appointment X updated");
@@ -53,22 +53,22 @@ public class AppointmentsController {
         }
     }
 
-//    @PatchMapping("/appointments/{id}")
-//    public ResponseEntity<Object> modifyAppointmentByDate(@PathVariable int id, @RequestBody String date) {
-//        appointments.set(id, date);
-//        return ResponseEntity.ok("Appointment X updated to new date");
-//    }
-//
-//    @PatchMapping("/books/{id}")
-//    public ResponseEntity<Object> modifyAppointmentByTime(@PathVariable int id, @RequestBody String time) {
-//        appointments.set(id, time);
-//        return ResponseEntity.ok("Appointment X updated to new time");
-//    }
-//
-//    @GetMapping("/appointments?date={date}")
-//    public ResponseEntity<Object> getAllAppointmentsByDate(@RequestParam String appointment, @RequestBody String date) {
-//        return ResponseEntity.ok(appointments);
-////        return ResponseEntity.ok("All Appointments for date X");
-//    }
+    @PatchMapping("/appointments/{id}")
+    public ResponseEntity<Object> modifyAppointmentByDate(@PathVariable int id, @RequestBody Appointment date) {
+        appointments.set(id, date);
+        return ResponseEntity.ok("Appointment X updated to new date");
+    }
+
+    @PatchMapping("/books/{id}")
+    public ResponseEntity<Object> modifyAppointmentByTime(@PathVariable int id, @RequestBody Appointment time) {
+        appointments.set(id, time);
+        return ResponseEntity.ok("Appointment X updated to new time");
+    }
+
+    @GetMapping("/appointments?date={date}")
+    public ResponseEntity<Object> getAllAppointmentsByDate(@RequestParam String appointment, @RequestBody Appointment date) {
+        return ResponseEntity.ok(appointments);
+//        return ResponseEntity.ok("All Appointments for date X");
+    }
 
 }
