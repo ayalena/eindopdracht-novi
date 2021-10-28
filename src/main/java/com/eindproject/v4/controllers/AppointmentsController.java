@@ -59,7 +59,7 @@ public class AppointmentsController {
         return ResponseEntity.ok("Appointment X updated to new date");
     }
 
-    @PatchMapping("/books/{id}")
+    @PatchMapping("/appointments/{id}")
     public ResponseEntity<Object> modifyAppointmentByTime(@PathVariable int id, @RequestBody Appointment time) {
         appointments.set(id, time);
         return ResponseEntity.ok("Appointment X updated to new time");
