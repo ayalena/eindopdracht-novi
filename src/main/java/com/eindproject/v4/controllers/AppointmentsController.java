@@ -19,7 +19,11 @@ public class AppointmentsController {
 
     @GetMapping("/appointments/{id}")
     public ResponseEntity<Object> getAppointment(@PathVariable int id) {
-        return ResponseEntity.ok(appointments.get(id));
+        try {
+            return ResponseEntity.ok(appointments.get(id));
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body("Appointment does not exist");
+        }
     }
 
     @PostMapping("/appointments")
@@ -41,18 +45,21 @@ public class AppointmentsController {
     }
 
     @PatchMapping("/appointments/{id}")
-    public ResponseEntity<Object> modifyAppointmentByDate(@PathVariable long id, @RequestBody String date) {
+    public ResponseEntity<Object> modifyAppointmentByDate(@PathVariable int id, @RequestBody String date) {
+        appointments.set(id, date);
         return ResponseEntity.ok("Appointment X updated to new date");
     }
 
     @PatchMapping("/books/{id}")
-    public ResponseEntity<Object> modifyAppointmentByTime(@PathVariable long id, @RequestBody String time) {
+    public ResponseEntity<Object> modifyAppointmentByTime(@PathVariable int id, @RequestBody String time) {
+        appointments.set(id, time);
         return ResponseEntity.ok("Appointment X updated to new time");
     }
 
     @GetMapping("/appointments?date={date}")
-    public ResponseEntity<Object> getAllAppointmentsByDate(@RequestParam String date) {
-        return ResponseEntity.ok("All Appointments for date X");
+    public ResponseEntity<Object> getAllAppointmentsByDate(@RequestParam String appointment, @RequestBody String date) {
+        return ResponseEntity.ok(appointments);
+//        return ResponseEntity.ok("All Appointments for date X");
     }
 
 }
