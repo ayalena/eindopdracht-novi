@@ -16,12 +16,15 @@ public class Appointment {
     @Column(length = 6)
     public String time;
 
+//    @Column
+//    public boolean isAvailable = true;
+
     //getters and setters
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -40,5 +43,13 @@ public class Appointment {
     public void setTime(String time) {
         this.time = time;
     }
+
+//    public boolean isAvailable() {
+//        return isAvailable;
+//    }
+//
+//    public void setAvailable(boolean available) {
+//        isAvailable = available;
+//    }
 
 }

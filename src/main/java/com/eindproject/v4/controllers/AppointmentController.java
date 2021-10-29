@@ -6,7 +6,9 @@ import com.eindproject.v4.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -45,22 +47,13 @@ public class AppointmentController {
         return ResponseEntity.ok("Appointment X updated");
     }
 
-//    @PatchMapping("/appointments/{id}")
-//    public ResponseEntity<Object> modifyAppointmentByDate(@PathVariable int id, @RequestBody Appointment date) {
-//        appointments.set(id, date);
-//        return ResponseEntity.ok("Appointment X updated to new date");
-//    }
+    @GetMapping("/appointments/{date}")
+    public ResponseEntity<Object> getAllAppointmentsByDate(@PathVariable String date) {
+        Iterable<Appointment> appointments = appointmentService.findAllByDate(date);
+        return ResponseEntity.ok(appointments);
+//        return ResponseEntity.ok("All Appointments for date X");
+    }
 
-//    @PatchMapping("/appointments/{id}")
-//    public ResponseEntity<Object> modifyAppointmentByTime(@PathVariable int id, @RequestBody Appointment time) {
-//        appointments.set(id, time);
-//        return ResponseEntity.ok("Appointment X updated to new time");
-//    }
 
-//    @GetMapping("/appointments?date={date}")
-//    public ResponseEntity<Object> getAllAppointmentsByDate(@RequestParam String appointment, @RequestBody Appointment date) {
-//        return ResponseEntity.ok(appointments);
-////        return ResponseEntity.ok("All Appointments for date X");
-//    }
 
 }

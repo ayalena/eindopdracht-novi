@@ -14,11 +14,13 @@ public class AppointmentService implements AppointmentServiceInterface {
     @Autowired
     AppointmentRepository appointmentRepository;
 
+    @Override
     public Iterable<Appointment> findAll() {
         Iterable<Appointment> appointments = appointmentRepository.findAll();
         return appointments;
     }
 
+    @Override
     public Optional<Appointment> findById(long id) {
         try {
             Optional<Appointment> appointment = appointmentRepository.findById(id);
@@ -29,11 +31,13 @@ public class AppointmentService implements AppointmentServiceInterface {
         }
     }
 
+    @Override
     public long addAppointment(Appointment appointment) {
         Appointment newAppointment = appointmentRepository.save(appointment);
         return newAppointment.getId();
     }
 
+    @Override
     public void deleteAppointment(long id) {
         try {
             appointmentRepository.deleteById(id);
@@ -43,6 +47,7 @@ public class AppointmentService implements AppointmentServiceInterface {
         }
     }
 
+    @Override
     public void updateAppointment(long id, Appointment newAppointment) {
         if (!appointmentRepository.existsById(id)) {
             throw new RecordNotFoundException();
@@ -54,4 +59,8 @@ public class AppointmentService implements AppointmentServiceInterface {
 
     }
 
+    public Iterable<Appointment> findAllByDate(String date) {
+        Iterable<Appointment> appointments = appointmentRepository.findAllByDate(date);
+        return appointments;
+    }
 }
