@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AppointmentService {
+public class AppointmentService implements AppointmentServiceInterface {
 
     @Autowired
     AppointmentRepository appointmentRepository;
@@ -26,7 +26,6 @@ public class AppointmentService {
         }
         catch (Exception ex) {
                 throw new RecordNotFoundException();
-
         }
     }
 
@@ -45,15 +44,14 @@ public class AppointmentService {
     }
 
     public void updateAppointment(long id, Appointment newAppointment) {
-        try {
+        if (!appointmentRepository.existsById(id)) {
+            throw new RecordNotFoundException();
+        }
             Appointment appointment = appointmentRepository.findById(id).get();
             appointment.setDate(newAppointment.getDate());
             appointment.setTime(newAppointment.getTime());
             appointmentRepository.save(appointment);
-        }
-        catch (Exception ex) {
-            throw new RecordNotFoundException();
-        }
+
     }
 
 }

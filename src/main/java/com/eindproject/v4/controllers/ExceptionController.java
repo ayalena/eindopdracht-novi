@@ -15,6 +15,4 @@ public class ExceptionController {
         return ResponseEntity.notFound().build();
     }
 
-
-
 }
