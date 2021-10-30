@@ -1,5 +1,13 @@
 package com.eindproject.v4.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import java.util.List;
+
 public class Customer {
 
     //attributes
@@ -8,7 +16,12 @@ public class Customer {
     public String lastName;
     public String email;
 
-    //onetomany met appointments
+    //relations
+    @OneToMany(mappedBy = "customer",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Appointment> appointments;
 
     //getters and setters
     public Long getCustomerID() {

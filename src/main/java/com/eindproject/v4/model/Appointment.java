@@ -1,5 +1,7 @@
 package com.eindproject.v4.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity(name = "appointments")
@@ -19,9 +21,11 @@ public class Appointment {
     @Column
     public Boolean isAvailable;
 
-
-//manytoone met customer
-
+    //relations
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    @JsonManagedReference
+    private Customer customer;
 
 
     //getters and setters
