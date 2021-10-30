@@ -8,6 +8,8 @@ public class Customer {
     public String lastName;
     public String email;
 
+    //onetomany met appointments
+
     //getters and setters
     public Long getCustomerID() {
         return customerID;
