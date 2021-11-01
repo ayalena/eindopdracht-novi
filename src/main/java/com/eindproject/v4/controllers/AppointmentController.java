@@ -61,4 +61,10 @@ public class AppointmentController {
         return ResponseEntity.ok("Appointment X reserved");
     }
 
+    @PutMapping("/appointments/{id}/cancel")
+    public ResponseEntity<Object> cancelAppointment(@PathVariable long id) {
+        appointmentService.cancelAppointment(id);
+        return ResponseEntity.ok("Appointment X cancelled");
+    }
+
 }

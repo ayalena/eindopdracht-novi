@@ -68,8 +68,18 @@ public class AppointmentService implements AppointmentServiceInterface {
         }
         Appointment appointment = appointmentRepository.findById(id).get();
         appointment.setAvailable(false);
-        //add customer details into appointment?
+        //add customer details into appointment
         Appointment reservedAppointment = appointmentRepository.save(appointment);
+    }
+
+    public void cancelAppointment(long id) {
+        if (!appointmentRepository.existsById(id)) {
+            throw new RecordNotFoundException();
+        }
+        Appointment appointment = appointmentRepository.findById(id).get();
+        appointment.setAvailable(true);
+        //delete customer details from appointment
+        Appointment cancelledAppointment = appointmentRepository.save(appointment);
     }
 
 }
