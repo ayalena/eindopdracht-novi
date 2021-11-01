@@ -29,6 +29,7 @@ public class AppointmentService implements AppointmentServiceInterface {
         }
     }
 
+    //for admin
     public long addAppointment(Appointment appointment) {
         appointment.setAvailable(true);
         Appointment newAppointment = appointmentRepository.save(appointment);
@@ -61,13 +62,14 @@ public class AppointmentService implements AppointmentServiceInterface {
     }
 
     //for customer
-    public long makeAppointment(Appointment appointment) {
+    public void makeAppointment(long id) {
+        if (!appointmentRepository.existsById(id)) {
+            throw new RecordNotFoundException();
+        }
+        Appointment appointment = appointmentRepository.findById(id).get();
         appointment.setAvailable(false);
-        Appointment newAppointment = appointmentRepository.save(appointment);
-        return newAppointment.getId();
+        //add customer details into appointment?
+        Appointment reservedAppointment = appointmentRepository.save(appointment);
     }
-
-    //for customer
-    //show only available dates
 
 }

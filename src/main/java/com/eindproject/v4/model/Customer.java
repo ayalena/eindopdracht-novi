@@ -2,26 +2,28 @@ package com.eindproject.v4.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity(name = "customers")
 public class Customer {
 
     //attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long customerID;
+
     public String firstName;
     public String lastName;
     public String email;
 
     //relations
-    @OneToMany(mappedBy = "customer",
+    @OneToMany(
+//            mappedBy = "customer",
             fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<Appointment> appointments;
+            cascade = CascadeType.MERGE)
+//    @JsonBackReference
+//    private List<Appointment> appointments;
 
     //getters and setters
     public Long getCustomerID() {

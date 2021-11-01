@@ -22,10 +22,14 @@ public class Appointment {
     public Boolean isAvailable;
 
     //relations
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
-    @JsonManagedReference
-    private Customer customer;
+    @ManyToOne(
+            fetch = FetchType.EAGER,
+            optional = true)
+    @JoinColumn(
+            name = "customer_id",
+            nullable = true)
+//    @JsonManagedReference
+//    private Customer customer;
 
 
     //getters and setters
