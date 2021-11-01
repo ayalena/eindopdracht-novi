@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface AppointmentRepository extends JpaRepository <Appointment, Long> {
 
     Iterable<Appointment> findAllByDate(String date);
+//    Iterable<Appointment> findAllAvailableAppointments();
 }

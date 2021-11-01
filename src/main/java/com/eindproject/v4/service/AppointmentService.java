@@ -82,4 +82,9 @@ public class AppointmentService implements AppointmentServiceInterface {
         Appointment cancelledAppointment = appointmentRepository.save(appointment);
     }
 
+//    public Iterable<Appointment> findAllAvailableAppointments() {
+//        Iterable<Appointment> appointments = appointmentRepository.findAllAvailableAppointments();
+//        return appointments;
+//    }
+
 }

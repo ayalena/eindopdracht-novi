@@ -67,4 +67,10 @@ public class AppointmentController {
         return ResponseEntity.ok("Appointment X cancelled");
     }
 
+//    @GetMapping("/appointments/available")
+//    public ResponseEntity<Object> getAvailableAppointments() {
+//        Iterable<Appointment> appointments = appointmentService.findAllAvailableAppointments();
+//        return ResponseEntity.ok(appointments);
+//    }
+
 }
