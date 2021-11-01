@@ -1,5 +1,7 @@
 package com.eindproject.v4.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity(name = "appointments")
@@ -16,12 +18,26 @@ public class Appointment {
     @Column(length = 6)
     public String time;
 
+    @Column
+    public Boolean isAvailable;
+
+    //relations
+    @ManyToOne(
+            fetch = FetchType.EAGER,
+            optional = true)
+    @JoinColumn(
+            name = "customer_id",
+            nullable = true)
+//    @JsonManagedReference
+//    private Customer customer;
+
+
     //getters and setters
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -39,6 +55,14 @@ public class Appointment {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public Boolean getAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(Boolean isAvailable) {
+        this.isAvailable = isAvailable;
     }
 
 }
