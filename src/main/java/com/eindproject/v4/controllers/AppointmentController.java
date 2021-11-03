@@ -12,17 +12,20 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class AppointmentController {
 
     @Autowired
     private AppointmentService appointmentService;
 
-    @GetMapping("/appointments")
+    //for everone
+    @GetMapping("/agenda")
     public ResponseEntity<Object> getAppointments() {
         Iterable<Appointment> appointments = appointmentService.findAll();
         return ResponseEntity.ok(appointments);
     }
 
+    //for admin
     @GetMapping("/appointments/{id}")
     public ResponseEntity<Object> getAppointment(@PathVariable long id) {
         Optional<Appointment> appointment = appointmentService.findById(id);

@@ -19,7 +19,7 @@ public class Appointment {
     public String time;
 
     @Column
-    public Boolean isAvailable;
+    public Boolean available;
 
     //relations
     @ManyToOne(
@@ -58,11 +58,11 @@ public class Appointment {
     }
 
     public Boolean getAvailable() {
-        return isAvailable;
+        return available;
     }
 
-    public void setAvailable(Boolean isAvailable) {
-        this.isAvailable = isAvailable;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
 }
