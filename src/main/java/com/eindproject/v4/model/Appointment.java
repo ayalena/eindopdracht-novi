@@ -1,7 +1,5 @@
 package com.eindproject.v4.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 
 @Entity(name = "appointments")
@@ -13,10 +11,10 @@ public class Appointment {
     public long id;
 
     @Column(length = 80)
-    public String date;
+    public String dateOfAppointment;
 
     @Column(length = 6)
-    public String time;
+    public String timeOfAppointment;
 
     @Column
     public Boolean available;
@@ -41,20 +39,20 @@ public class Appointment {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateOfAppointment() {
+        return dateOfAppointment;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateOfAppointment(String dateOfAppointment) {
+        this.dateOfAppointment = dateOfAppointment;
     }
 
-    public String getTime() {
-        return time;
+    public String getTimeOfAppointment() {
+        return timeOfAppointment;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTimeOfAppointment(String timeOfAppointment) {
+        this.timeOfAppointment = timeOfAppointment;
     }
 
     public Boolean getAvailable() {

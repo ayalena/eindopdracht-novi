@@ -50,14 +50,14 @@ public class AppointmentService implements AppointmentServiceInterface {
             throw new RecordNotFoundException();
         }
             Appointment appointment = appointmentRepository.findById(id).get();
-            appointment.setDate(newAppointment.getDate());
-            appointment.setTime(newAppointment.getTime());
+            appointment.setDateOfAppointment(newAppointment.getDateOfAppointment());
+            appointment.setTimeOfAppointment(newAppointment.getTimeOfAppointment());
             appointmentRepository.save(appointment);
 
     }
 
-    public Iterable<Appointment> findAllByDate(String date) {
-        Iterable<Appointment> appointments = appointmentRepository.findAllByDate(date);
+    public Iterable<Appointment> findAllByDate(String dateOfAppointment) {
+        Iterable<Appointment> appointments = appointmentRepository.findAllByDateOfAppointment(dateOfAppointment);
         return appointments;
     }
 

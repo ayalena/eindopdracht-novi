@@ -51,8 +51,8 @@ public class AppointmentController {
     }
 
     @GetMapping("/appointments/{date}")
-    public ResponseEntity<Object> getAllAppointmentsByDate(@PathVariable String date) {
-        Iterable<Appointment> appointments = appointmentService.findAllByDate(date);
+    public ResponseEntity<Object> getAllAppointmentsByDate(@PathVariable String dateOfAppointment) {
+        Iterable<Appointment> appointments = appointmentService.findAllByDate(dateOfAppointment);
         return ResponseEntity.ok(appointments);
 //        return ResponseEntity.ok("All Appointments for date X");
     }
