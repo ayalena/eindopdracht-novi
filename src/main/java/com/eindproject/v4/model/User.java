@@ -10,6 +10,9 @@ public class User {
 
     //standard attributes
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -19,7 +22,7 @@ public class User {
     @Column(nullable = false)
     private boolean enabled;
 
-    @Column
+    @Column(unique = true)
     private String email;
 
 

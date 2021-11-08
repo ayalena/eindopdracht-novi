@@ -181,4 +181,7 @@ public class UserService {
         return validPassword;
     }
 
+    public Optional<User> loginUser(String email) {
+        return userRepository.findById(email);
+    }
 }

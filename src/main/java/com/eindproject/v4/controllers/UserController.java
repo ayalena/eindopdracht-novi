@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/users")
+//@RequestMapping("/users")
 @PreAuthorize("hasAnyRole('ADMIN')")
 public class UserController {
 
@@ -31,17 +31,23 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUser(username));
     }
 
-    @PostMapping("/users")
+    @GetMapping("/login")
+    public ResponseEntity<Object> loginUser(@PathVariable("email") String email) {
+        return ResponseEntity.ok().body(userService.loginUser(email));
+    }
+
+    @PostMapping("/register")
     public ResponseEntity<Object> createUser(@RequestBody UserPostRequest user) {
         String newUsername = userService.createUser(user);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{username}")
-                .buildAndExpand(newUsername)
-                .toUri();
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentRequest()
+//                .path("/{username}")
+//                .buildAndExpand(newUsername)
+//                .toUri();
 
-        return ResponseEntity.created(location).build();
+//        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(URI.create(newUsername)).build();
     }
 
     @PutMapping(value = "/{username}")
