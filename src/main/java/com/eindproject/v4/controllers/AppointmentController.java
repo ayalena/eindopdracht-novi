@@ -12,17 +12,20 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class AppointmentController {
 
     @Autowired
     private AppointmentService appointmentService;
 
-    @GetMapping("/appointments")
+    //for everone
+    @GetMapping("/agenda")
     public ResponseEntity<Object> getAppointments() {
         Iterable<Appointment> appointments = appointmentService.findAll();
         return ResponseEntity.ok(appointments);
     }
 
+    //for admin
     @GetMapping("/appointments/{id}")
     public ResponseEntity<Object> getAppointment(@PathVariable long id) {
         Optional<Appointment> appointment = appointmentService.findById(id);
@@ -48,8 +51,8 @@ public class AppointmentController {
     }
 
     @GetMapping("/appointments/{date}")
-    public ResponseEntity<Object> getAllAppointmentsByDate(@PathVariable String date) {
-        Iterable<Appointment> appointments = appointmentService.findAllByDate(date);
+    public ResponseEntity<Object> getAllAppointmentsByDate(@PathVariable String dateOfAppointment) {
+        Iterable<Appointment> appointments = appointmentService.findAllByDate(dateOfAppointment);
         return ResponseEntity.ok(appointments);
 //        return ResponseEntity.ok("All Appointments for date X");
     }
@@ -66,5 +69,11 @@ public class AppointmentController {
         appointmentService.cancelAppointment(id);
         return ResponseEntity.ok("Appointment X cancelled");
     }
+
+//    @GetMapping("/appointments/available")
+//    public ResponseEntity<Object> getAvailableAppointments() {
+//        Iterable<Appointment> appointments = appointmentService.findAllAvailableAppointments();
+//        return ResponseEntity.ok(appointments);
+//    }
 
 }
