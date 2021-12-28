@@ -3,10 +3,10 @@ package com.eindproject.v4.payload;
 import java.util.Set;
 
 public class UserPostRequest {
-    private String username;
-    private String password;
-    private String email;
-    private Set<String> authorities;
+    public String username;
+    public String password;
+    public String email;
+    public Set<String> authorities;
 
     public String getUsername() {
         return username;

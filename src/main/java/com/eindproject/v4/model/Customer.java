@@ -11,27 +11,30 @@ public class Customer {
     //attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long customerID;
+    public Long id;
 
     public String firstName;
     public String lastName;
     public String email;
 
+
     //relations
-    @OneToMany(
-//            mappedBy = "customer",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.MERGE)
+//    @OneToMany(
+////            mappedBy = "customer",
+//            fetch = FetchType.LAZY,
+//            cascade = CascadeType.MERGE)
 //    @JsonBackReference
 //    private List<Appointment> appointments;
 
+
+
     //getters and setters
-    public Long getCustomerID() {
-        return customerID;
+    public Long getId() {
+        return id;
     }
 
-    public void setCustomerID(Long customerID) {
-        this.customerID = customerID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {

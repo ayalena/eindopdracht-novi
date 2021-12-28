@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Map;
@@ -18,8 +17,13 @@ import java.util.Map;
 @PreAuthorize("hasAnyRole('ADMIN')")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
 
     @GetMapping("/users")
     public ResponseEntity<Object> getUsers() {
@@ -37,17 +41,18 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> createUser(@RequestBody UserPostRequest user) {
+    public ResponseEntity<Object> createUser(@RequestBody User user) {
         String newUsername = userService.createUser(user);
-
-//        URI location = ServletUriComponentsBuilder
-//                .fromCurrentRequest()
-//                .path("/{username}")
-//                .buildAndExpand(newUsername)
-//                .toUri();
-
-//        return ResponseEntity.created(location).build();
+//
+////        URI location = ServletUriComponentsBuilder
+////                .fromCurrentRequest()
+////                .path("/{username}")
+////                .buildAndExpand(newUsername)
+////                .toUri();
+//
+////        return ResponseEntity.created(location).build();
         return ResponseEntity.created(URI.create(newUsername)).build();
+
     }
 
     @PutMapping(value = "/{username}")

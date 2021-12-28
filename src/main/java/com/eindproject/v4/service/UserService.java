@@ -5,6 +5,7 @@ import com.eindproject.v4.model.Authority;
 import com.eindproject.v4.model.User;
 import com.eindproject.v4.payload.UserPostRequest;
 import com.eindproject.v4.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,18 +13,32 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
+
 import java.util.Optional;
 import java.util.Set;
+
 
 @Service
 public class UserService {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    UserRepository userRepository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
+
+
+    public void register() {
+        User user = new User();
+        BeanUtils.copyProperties(user, user);
+        userRepository.save(user);
+    }
 
     public Iterable<User> getUsers() {
         return userRepository.findAll();
@@ -33,7 +48,7 @@ public class UserService {
         return userRepository.findById(username);
     }
 
-    public String createUser(UserPostRequest userPostRequest) {
+    public String createUser(User userPostRequest) {
         try {
             String encryptedPassword = passwordEncoder.encode(userPostRequest.getPassword());
 
@@ -43,15 +58,7 @@ public class UserService {
             user.setEmail(userPostRequest.getEmail());
             user.setEnabled(true);
             user.addAuthority("ROLE_USER");
-            for (String s : userPostRequest.getAuthorities()) {
-                if (!s.startsWith("ROLE_")) {
-                    s = "ROLE_" + s;
-                }
-                s = s.toUpperCase();
-                if (!s.equals("ROLE_USER")) {
-                    user.addAuthority(s);
-                }
-            }
+
             User newUser = userRepository.save(user);
             return newUser.getUsername();
         }

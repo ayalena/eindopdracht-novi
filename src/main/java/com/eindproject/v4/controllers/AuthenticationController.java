@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+
 public class AuthenticationController {
 
     @Autowired
@@ -20,4 +21,5 @@ public class AuthenticationController {
         AuthenticationResponse authenticationResponse = userAuthenticateService.authenticateUser(authenticationRequest);
         return ResponseEntity.ok(authenticationResponse);
     }
+
 }

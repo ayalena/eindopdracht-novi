@@ -50,6 +50,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 //for all
                 .antMatchers(HttpMethod.GET,"/agenda").permitAll()
+                .antMatchers(HttpMethod.POST,"/register").permitAll()
 
                 //for admin only
                 .antMatchers(HttpMethod.POST,"/appointments").hasRole("ADMIN")
